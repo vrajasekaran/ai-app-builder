@@ -7,6 +7,7 @@ from prompts import *
 from states import *
 from langgraph.graph import StateGraph
 from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
 import os
 load_dotenv()
 
@@ -15,13 +16,15 @@ set_verbose(True)
 
 llm = ChatGroq(model="openai/gpt-oss-120b")
 
-
-
+memory = MemorySaver()
+config = { 'configurable': {
+    'thread_id': '1'
+} }
 
 def planner_agent(state: dict) -> dict:
     user_prompt = state["user_prompt"]
     prompt = planner_prompt(user_prompt)
-    result = llm.with_structured_output(Plan).invoke(prompt)
+    result = llm.with_structured_output(Plan).invoke(prompt, config=config)
     return {
         "plan": result
     } 
@@ -29,7 +32,7 @@ def planner_agent(state: dict) -> dict:
 
 def architect_agent(state: dict) -> dict:
     plan = state["plan"]
-    resp = llm.with_structured_output(ArchitectOutput).invoke( architect_prompt(plan))
+    resp = llm.with_structured_output(ArchitectOutput).invoke( architect_prompt(plan), config=config)
     if resp is None:
         raise ValueError("Architect did not return a valid response")
     resp.plan = plan
@@ -69,7 +72,7 @@ def developer_agent(state: dict) -> dict:
                                      {"role":"user", "content": user_prompt }
                                      ]
                         
-                        })
+                        }, config=config)
     developer_output.current_step_idx += 1
     return {
         "code": developer_output
@@ -91,14 +94,14 @@ graph.add_conditional_edges(
 
 graph.set_entry_point("planner")
 
-agent = graph.compile()
+agent = graph.compile(checkpointer=memory)
 
 user_prompt = "create a landing page for a Mortgage Brokerage company"
 
 result = agent.invoke({
     "user_prompt": user_prompt
 },
-{ "recursion_limit":10 }
+config
 )
 
 print(result)
