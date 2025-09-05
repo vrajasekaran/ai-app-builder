@@ -8,6 +8,8 @@ from states import *
 from langgraph.graph import StateGraph
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.types import interrupt, Command
+from langsmith import traceable
 import os
 load_dotenv()
 
@@ -25,11 +27,15 @@ def planner_agent(state: dict) -> dict:
     user_prompt = state["user_prompt"]
     prompt = planner_prompt(user_prompt)
     result = llm.with_structured_output(Plan).invoke(prompt, config=config)
-    return {
-        "plan": result
-    } 
+    value = interrupt("Approve the Project Plan: yes/no")
+    if value == "yes":
+        return {
+            "plan": result
+        } 
+    else:
+        raise ValueError("Plan was not approved. Exiting")
 
-
+@traceable
 def architect_agent(state: dict) -> dict:
     plan = state["plan"]
     resp = llm.with_structured_output(ArchitectOutput).invoke( architect_prompt(plan), config=config)
@@ -42,7 +48,7 @@ def architect_agent(state: dict) -> dict:
     }
 
 
-
+@traceable
 def developer_agent(state: dict) -> dict:
     developer_output: DeveloperOutput = state.get("developer_output")
     if developer_output is None:
@@ -103,7 +109,8 @@ result = agent.invoke({
 },
 config
 )
-
+value = input("Approve: yes/no")
+agent.invoke(Command(resume=value), config=config)
 print(result)
 
 

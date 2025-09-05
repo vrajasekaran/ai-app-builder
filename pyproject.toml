@@ -10,6 +10,7 @@ dependencies = [
     "langchain>=0.3.27",
     "langchain-groq>=0.3.7",
     "langgraph>=0.6.6",
+    "langsmith>=0.4.25",
     "pip>=25.2",
     "pydantic>=2.11.7",
     "python-dotenv>=1.1.1",
