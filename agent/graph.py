@@ -1,5 +1,6 @@
 from langgraph.constants import END
 from langchain_groq import ChatGroq
+from langchain_ollama import ChatOllama
 from langchain.globals import set_debug, set_verbose
 from dotenv import load_dotenv
 from tools import get_current_directory, list_files, read_file, write_file
@@ -16,7 +17,8 @@ load_dotenv()
 set_debug(True)
 set_verbose(True)
 
-llm = ChatGroq(model="openai/gpt-oss-120b")
+llm = ChatOllama(model="llama3.2")
+#llm = ChatGroq(model="openai/gpt-oss-120b")
 
 memory = MemorySaver()
 config = { 'configurable': {

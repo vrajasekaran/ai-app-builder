@@ -11,6 +11,7 @@ dependencies = [
     { name = "groq" },
     { name = "langchain" },
     { name = "langchain-groq" },
+    { name = "langchain-ollama" },
     { name = "langgraph" },
     { name = "langsmith" },
     { name = "pip" },
@@ -24,6 +25,7 @@ requires-dist = [
     { name = "groq", specifier = ">=0.31.1" },
     { name = "langchain", specifier = ">=0.3.27" },
     { name = "langchain-groq", specifier = ">=0.3.7" },
+    { name = "langchain-ollama", specifier = ">=0.3.7" },
     { name = "langgraph", specifier = ">=0.6.6" },
     { name = "langsmith", specifier = ">=0.4.25" },
     { name = "pip", specifier = ">=25.2" },
@@ -310,6 +312,19 @@ wheels = [
 ]
 
 [[package]]
+name = "langchain-ollama"
+version = "0.3.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "langchain-core" },
+    { name = "ollama" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c1/34/c94ec1ea0f1bae7ed4e8a05c79bdf7f49a5f0b5af1a9a0da88ace03450a7/langchain_ollama-0.3.7.tar.gz", hash = "sha256:9deeca09a44fb8c5a46b1e43d670a7301f1d1e73196fa9191a89f9883217903b", size = 31924, upload-time = "2025-08-22T20:42:46.814Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b9/df/5d92427eabc2b070689de9d37ea90636ea51c1ec0ee75c362fa1995201cc/langchain_ollama-0.3.7-py3-none-any.whl", hash = "sha256:845192a75a1671bd36bc8c54baae2e929c3b1b0e3c8c618438df20354b0231de", size = 24905, upload-time = "2025-08-22T20:42:45.641Z" },
+]
+
+[[package]]
 name = "langchain-text-splitters"
 version = "0.3.11"
 source = { registry = "https://pypi.org/simple" }
@@ -393,6 +408,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/0c/84/2f01d51a557d14a9a5590c32de5dde3b466b00a55521450c2c9e77ffa438/langsmith-0.4.25.tar.gz", hash = "sha256:56f0c45810384fba37582ca17fdbcf6ead51934d26d72672e5a810452c0d4ae3", size = 940274, upload-time = "2025-09-04T23:59:33.97Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a5/85/8a5ca8f6044bd74acd0d364878b459d84ec460cf40aec17ed9cd5716e908/langsmith-0.4.25-py3-none-any.whl", hash = "sha256:adb61784ff58e65f0290ba45770626219fb06a776e69fbcf98aec580478b4686", size = 379416, upload-time = "2025-09-04T23:59:31.72Z" },
+]
+
+[[package]]
+name = "ollama"
+version = "0.5.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/91/6d/ae96027416dcc2e98c944c050c492789502d7d7c0b95a740f0bb39268632/ollama-0.5.3.tar.gz", hash = "sha256:40b6dff729df3b24e56d4042fd9d37e231cee8e528677e0d085413a1d6692394", size = 43331, upload-time = "2025-08-07T21:44:10.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/be/f6/2091e50b8b6c3e6901f6eab283d5efd66fb71c86ddb1b4d68766c3eeba0f/ollama-0.5.3-py3-none-any.whl", hash = "sha256:a8303b413d99a9043dbf77ebf11ced672396b59bec27e6d5db67c88f01b279d2", size = 13490, upload-time = "2025-08-07T21:44:09.353Z" },
 ]
 
 [[package]]
