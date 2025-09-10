@@ -1,6 +1,6 @@
 def planner_prompt(user_prompt):
     return f"""
-    You are the PLANNER agent. Conver the user prompt into a COMPLETE engineering project plan.
+    You are the PLANNER agent. Convert the user prompt into a COMPLETE engineering project plan.
 
     User request: { user_prompt }
     """
